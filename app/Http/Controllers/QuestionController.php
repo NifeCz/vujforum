@@ -10,6 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 class QuestionController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['index', 'show']]);
+    }
+
+
     public function index()
     {
         // pužití question resrouce pro každej řádek, s tím že budeš vracet jen data která chceš, která máš nastavená
