@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Model\Question;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +12,9 @@ class QuestionController extends Controller
 
     public function index()
     {
-        return Question::latest()->get();
+        // pužití question resrouce pro každej řádek, s tím že budeš vracet jen data která chceš, která máš nastavená
+        // v QuestionResource
+        return QuestionResource::collection(Question::latest()->get());
     }
 
     public function store(Request $request)
@@ -25,7 +28,8 @@ class QuestionController extends Controller
 
     public function show(Question $question)
     {
-        return $question;
+        //vrací výsledek v data
+        return new QuestionResource($question);
     }
 
     public function update(Request $request, Question $question)
