@@ -28,13 +28,14 @@ class QuestionController extends Controller
 
     public function show(Question $question)
     {
-        //vrací výsledek v data
+        //vrací výsledek v data s QuestionResource pravidly
         return new QuestionResource($question);
     }
 
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
     public function destroy(Question $question)
